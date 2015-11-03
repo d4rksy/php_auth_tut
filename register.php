@@ -1,6 +1,6 @@
 <?php
     //include shit
-	require "database.php";
+    require "database.php";
     require "password.php";
     
     $passError = false;
@@ -68,8 +68,8 @@
                         <input name="username" class="form-control" type="text" required/>
                     </div>
                     <?php if ($userError == true) : ?>
-                            <div class="alert alert-danger">Username is already in use.</div>
-                        <?php endif;?>
+                        <div class="alert alert-danger">Username is already in use.</div>
+                    <?php endif;?>
                     <div class="form-group">
                         <label class="form-label">Email Address</label>
                         <input name="email" class="form-control" type="email" required/>
@@ -82,9 +82,9 @@
                         <label class="form-label">Password Confirmation</label>
                         <input name="password-confirm" class="form-control" type="password" required/>
                     </div>
-                        <?php if ($passError == true) : ?>
-                            <div class="alert alert-danger">Passwords do not match.</div>
-                        <?php endif;?>
+                    <?php if ($passError == true) : ?>
+                        <div class="alert alert-danger">Passwords do not match.</div>
+                    <?php endif;?>
                     <div class="form-group">
                         <button name="registrationSubmit" id="loginBtn" class="btn btn-success btn-md">Register</button>
                     </div>

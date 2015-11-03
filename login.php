@@ -74,9 +74,9 @@
                         <label class="form-label">Password</label>
                         <input name="password" class="form-control" type="password" required/>
                     </div>
-                        <?php if ($passError == true) : ?>
-                            <div class="alert alert-danger">Incorrect username or password.</div>
-                        <?php endif;?>
+                    <?php if ($passError == true) : ?>
+                        <div class="alert alert-danger">Incorrect username or password.</div>
+                    <?php endif;?>
                     <div class="form-group">
                         <button id="loginBtn" class="btn btn-success btn-md">Login</button>                     </div>
                     <div class="form-group">
