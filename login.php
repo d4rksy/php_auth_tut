@@ -1,33 +1,37 @@
 <?php
 
-//include shit
+// Include helper scripts
 require "database.php";
 require "password.php";
 
+// Initiate the Session so we can access the $_SESSION global variable in this script.
 session_start();
 
+
+// Check if user has already logged in, if true redirect to index.php
 if (isset($_SESSION["user"])) {
     header("Location: index.php");
 }
 
-
+// Define an error variable for password errors
 $passError = false;
 
-//Check if POST
+// Check if POST
 if (isset($_POST["username"]) && isset($_POST["password"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     
-    //Check if a user exists
+    // Check if a user exists
     if ($user = getUser($username, $conn)) {
-        //Check if passwords match. If you get an error here, check that your password column
-        //is set to something as large as VARCHAR(128), 45 is definitely too small.
+        // Check if passwords match. If you get an error here, check that your password column
+        // is set to something as large as VARCHAR(128), 45 is definitely too small.
         if(verifyPassword($password, $user["password"])) {
-            //Create a session
+            // Set the $_SESSION variable for the $user so we can access them on 
+            // other pages such as index.php.
             $_SESSION["user"]["user_id"] = $user["id"];
             $_SESSION["user"]["user_email"] = $user["email"];
             $_SESSION["user"]["user_name"] = $user["username"];
-            //Redirect to index on login
+            // Redirect to index on login
             header('Location: http://localhost/authtest/index.php');
         } else {
             $passError = true;
@@ -76,6 +80,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
                         <label class="form-label">Password</label>
                         <input name="password" class="form-control" type="password" required/>
                     </div>
+                    <!-- Display the error message if $passError == true -->
                     <?php if ($passError == true) : ?>
                         <div class="alert alert-danger">Incorrect username or password.</div>
                     <?php endif;?>

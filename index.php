@@ -2,6 +2,7 @@
 
 session_start();
 
+// Check if user is logged in, if not redirect to login.php
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
 }
@@ -28,6 +29,7 @@ if (!isset($_SESSION["user"])) {
         </ul>
     </nav>
     <div class="container">
+        <!-- Greet the user by username -->
         <h3>Hello <?php echo $_SESSION["user"]["user_name"]; ?></h3>
     </div>
 </body>

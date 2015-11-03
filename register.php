@@ -3,6 +3,7 @@
 require "database.php";
 require "password.php";
 
+//Define a few variables for error messages upon validation failure.
 $passError = false;
 $userError = false;
 

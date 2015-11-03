@@ -9,12 +9,11 @@
  *  when a better hashing algorithm has proven it self.
  */
 
-//Set work factor for bcrypt
-$options = [
-    "cost" => 14,
-    ];
+// Set work factor for bcrypt
+$options = ["cost" => 14];
 
 function hashPassword($password, $options) {
+    // return password_hash($password, PASSWORD_BCRYPT, $options);
     return password_hash($password, PASSWORD_DEFAULT, $options);
 }
 
