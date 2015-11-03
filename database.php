@@ -68,7 +68,7 @@ function tableExists($conn, $table) {
 }
 
 function fetchGuestbook($conn) {
-    $query = $conn->prepare("SELECT profile.username, guestbook.comment, guestbook.timestamp FROM guestbook INNER JOIN profile on profile.id=guestbook.user_id");
+    $query = $conn->prepare("SELECT profile.username, guestbook.comment, guestbook.timestamp FROM guestbook JOIN profile on profile.id=guestbook.user_id ORDER BY guestbook.timestamp DESC");
     $query->execute();
     $profile = $query->fetchAll();
     return $profile;
