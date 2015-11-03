@@ -1,39 +1,39 @@
 <?php
-    //include shit
-    require "database.php";
-    require "password.php";
-    
-    $passError = false;
-    $userError = false;
+//include shit
+require "database.php";
+require "password.php";
 
-    //Check if POST
-    if (isset($_POST["registrationSubmit"])) {
-        //Check if username was entered
-        if (isset($_POST["username"])) {
-            $username = $_POST["username"];
-            //PDO defaults to boolean false on empty queries which is what we are looking for
-            if (getUser($_POST["username"],$conn) == false) {
-                //Check if passwords match
-                if ($_POST["password"] === $_POST["password-confirm"]) {
-                    //Put all the relevant user information in to the data array
-                    $data["username"]   = $_POST["username"];
-                    $data["email"]      = $_POST["email"];     
-                    //Hash the password (see password.php)
-                    $data["password"]   = hashPassword($_POST["password"], $options);
-                    //Insert data in to database (see database.php)
-                    insertUser($data, $conn);
-                    //redirect to login
-                    header("Location: login.php");
-                }  
-                else {
-                    $passError = true;
-                }
-            } 
+$passError = false;
+$userError = false;
+
+//Check if POST
+if (isset($_POST["registrationSubmit"])) {
+    //Check if username was entered
+    if (isset($_POST["username"])) {
+        $username = $_POST["username"];
+        //PDO defaults to boolean false on empty queries which is what we are looking for
+        if (getUser($_POST["username"],$conn) == false) {
+            //Check if passwords match
+            if ($_POST["password"] === $_POST["password-confirm"]) {
+                //Put all the relevant user information in to the data array
+                $data["username"]   = $_POST["username"];
+                $data["email"]      = $_POST["email"];     
+                //Hash the password (see password.php)
+                $data["password"]   = hashPassword($_POST["password"], $options);
+                //Insert data in to database (see database.php)
+                insertUser($data, $conn);
+                //redirect to login
+                header("Location: login.php");
+            }  
             else {
-                $userError = true;
+                $passError = true;
             }
+        } 
+        else {
+            $userError = true;
         }
     }
+}
 ?>
 <!DOCTYPE html>
 <html>

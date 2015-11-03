@@ -1,40 +1,42 @@
 <?php
-    //include shit
-	require "database.php";
-    require "password.php";
+
+//include shit
+require "database.php";
+require "password.php";
+
+session_start();
+
+if (isset($_SESSION["user"])) {
+    header("Location: index.php");
+}
+
+
+$passError = false;
+
+//Check if POST
+if (isset($_POST["username"]) && isset($_POST["password"])) {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
     
-    session_start();
-    
-    if (isset($_SESSION["user"])) {
-        header("Location: index.php");
-    }
-
-
-    $passError = false;
-
-    //Check if POST
-    if (isset($_POST["username"]) && isset($_POST["password"])) {
-        $username = $_POST["username"];
-        $password = $_POST["password"];
-        
-        //Check if a user exists
-        if ($user = getUser($username, $conn)) {
-            //Check if passwords match. If you get an error here, check that your password column
-            //is set to something as large as VARCHAR(128), 45 is definitely too small.
-            if(verifyPassword($password, $user["password"])) {
-                //Create a session
-                $_SESSION["user"]["user_id"] = $user["id"];
-                $_SESSION["user"]["user_email"] = $user["email"];
-                $_SESSION["user"]["user_name"] = $user["username"];
-                //Redirect to index on login
-                header('Location: http://localhost/authtest/index.php');
-            } else {
-                $passError = true;
-            }
+    //Check if a user exists
+    if ($user = getUser($username, $conn)) {
+        //Check if passwords match. If you get an error here, check that your password column
+        //is set to something as large as VARCHAR(128), 45 is definitely too small.
+        if(verifyPassword($password, $user["password"])) {
+            //Create a session
+            $_SESSION["user"]["user_id"] = $user["id"];
+            $_SESSION["user"]["user_email"] = $user["email"];
+            $_SESSION["user"]["user_name"] = $user["username"];
+            //Redirect to index on login
+            header('Location: http://localhost/authtest/index.php');
         } else {
             $passError = true;
         }
-	}
+    } else {
+        $passError = true;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
