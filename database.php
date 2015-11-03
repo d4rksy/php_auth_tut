@@ -21,7 +21,7 @@ function insertUser($data,$conn) {
     $query->execute();
 }
 
-function createTable($conn) {
+function createUserTable($conn) {
     $query = $conn->prepare("CREATE TABLE `profile` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `username` varchar(45) DEFAULT NULL,
@@ -29,10 +29,28 @@ function createTable($conn) {
     `active` varchar(45) DEFAULT NULL,
     `email` varchar(45) DEFAULT NULL,
     PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;");
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;");
     $query->execute();
 }
 
+function createGuestbookTable($conn) {
+    $query = $conn->prepare("CREATE TABLE `guestbook` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `comment` TEXT DEFAULT NULL,
+    `timestamp` INT(11) DEFAULT NULL,
+    `user_id` INT(11) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;");
+    $query->execute();
+}
+
+function insertComment($conn, $data) {
+    $query = $conn->prepare("INSERT INTO guestbook (comment, timestamp, user_id) VALUES (:comment, :timestamp, :user_id)");
+    $query->bindParam(":comment", $data["comment"]);
+    $query->bindParam(":timestamp", $data["timestamp"]);
+    $query->bindParam(":user_id", $data["user_id"]);
+    $query->execute();
+}
 
 function tableExists($conn, $table) {
 
@@ -47,6 +65,13 @@ function tableExists($conn, $table) {
 
     // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
     return $result !== FALSE;
+}
+
+function fetchGuestbook($conn) {
+    $query = $conn->prepare("SELECT profile.username, guestbook.comment, guestbook.timestamp FROM guestbook INNER JOIN profile on profile.id=guestbook.user_id");
+    $query->execute();
+    $profile = $query->fetchAll();
+    return $profile;
 }
 
 ?>

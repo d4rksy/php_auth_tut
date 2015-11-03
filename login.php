@@ -6,7 +6,7 @@ require "password.php";
 
 // Lets see if our database exists if not, lets create it
 if (!tableExists($conn, 'profile')) {
-    createTable($conn);
+    createUserTable($conn);
 }
 
 // Initiate the Session so we can access the $_SESSION global variable in this script.
