@@ -1,5 +1,6 @@
 <?php
 
+//$conn = new PDO('mysql:host=localhost;dbname=yourdbname', 'username', 'password');
 $conn = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 
 
