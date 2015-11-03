@@ -88,7 +88,8 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
                         <div class="alert alert-danger">Incorrect username or password.</div>
                     <?php endif;?>
                     <div class="form-group">
-                        <button id="loginBtn" class="btn btn-success btn-md">Login</button>                     </div>
+                        <button id="loginBtn" class="btn btn-success btn-md">Login</button>
+                    </div>
                     <div class="form-group">
                         <a href="register.php">Not registered?</a>
                     </div>
