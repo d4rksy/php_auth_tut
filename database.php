@@ -21,5 +21,32 @@ function insertUser($data,$conn) {
     $query->execute();
 }
 
+function createTable($conn) {
+    $query = $conn->prepare("CREATE TABLE `profile` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `username` varchar(45) DEFAULT NULL,
+    `password` varchar(128) DEFAULT NULL,
+    `active` varchar(45) DEFAULT NULL,
+    `email` varchar(45) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;");
+    $query->execute();
+}
+
+
+function tableExists($conn, $table) {
+
+    // Try a select statement against the table
+    // Run it in try/catch in case PDO is in ERRMODE_EXCEPTION.
+    try {
+        $result = $conn->query("SELECT 1 FROM $table LIMIT 1");
+    } catch (Exception $e) {
+        // We got an exception == table not found
+        return FALSE;
+    }
+
+    // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
+    return $result !== FALSE;
+}
 
 ?>
