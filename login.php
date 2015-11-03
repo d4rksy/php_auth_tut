@@ -28,15 +28,18 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
         if(verifyPassword($password, $user["password"])) {
             // Set the $_SESSION variable for the $user so we can access them on 
             // other pages such as index.php.
-            $_SESSION["user"]["user_id"] = $user["id"];
+            $_SESSION["user"]["user_id"]    = $user["id"];
             $_SESSION["user"]["user_email"] = $user["email"];
-            $_SESSION["user"]["user_name"] = $user["username"];
+            $_SESSION["user"]["user_name"]  = $user["username"];
             // Redirect to index on login
             header('Location: http://localhost/authtest/index.php');
         } else {
+            // Wrong password so set Password error to true.
             $passError = true;
         }
     } else {
+        // Wrong username, but since we don't want the user to know this, just claim
+        // that password OR username were wrong.
         $passError = true;
     }
 }

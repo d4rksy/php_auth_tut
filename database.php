@@ -1,10 +1,10 @@
 <?php
 
-//$conn = new PDO('mysql:host=localhost;dbname=yourdbname', 'username', 'password');
+// $conn = new PDO('mysql:host=localhost;dbname=yourdbname', 'username', 'password');
 $conn = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 
 
-//Grab data relating to username
+// Grab data relating to username
 function getUser($username,$conn) {
     $query = $conn->prepare("SELECT * FROM profile WHERE username = :username LIMIT 1");
     $query->bindParam(":username", $username);
