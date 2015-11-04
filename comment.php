@@ -18,6 +18,13 @@ if (!isset($_SESSION["user"])) {
     header("Location: login.php");
 }
 
+// Check if Ajax request
+if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
+    //request is ajax
+    $commentList = fetchGuestbook($conn);
+    return json_encode($commentList);
+}
+
 $emptyError = false;
 
 // Check for $_POST
