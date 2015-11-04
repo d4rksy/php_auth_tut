@@ -130,7 +130,7 @@ function tableExists($conn, $table) {
  * @return $guestbook array
  */
 function fetchGuestbook($conn) {
-    $query = $conn->prepare("SELECT profile.username, guestbook.comment, guestbook.timestamp FROM guestbook JOIN profile on profile.id=guestbook.user_id ORDER BY guestbook.timestamp DESC");
+    $query = $conn->prepare("SELECT profile.username, guestbook.comment, guestbook.timestamp FROM guestbook JOIN profile on guestbook.user_id=profile.id ORDER BY guestbook.timestamp DESC");
     $query->execute();
     $guestbook = $query->fetchAll();
     return $guestbook;
