@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @Author Juho 'd4rksy' Nikula
+ * @Created 03/11/2015
+ */
+
 // $conn = new PDO('mysql:host=localhost;dbname=yourdbname', 'username', 'password');
 $conn = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 
