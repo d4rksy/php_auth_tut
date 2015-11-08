@@ -91,7 +91,6 @@ function createGuestbookTable($conn) {
     $query->execute();
 }
 
-<<<<<<< HEAD
 function createShopTable($conn) {
     $query = $conn->prepare("CREATE TABLE `shop` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -123,13 +122,11 @@ function getShop($conn) {
     return $shop;
 }
 
-=======
 /**
  * Inserts comment data
  * @param  object
  * @param  $data array containing comment data
  */
->>>>>>> 1d39c8d8055b9e2121f7a5d65f6afacabd170b98
 function insertComment($conn, $data) {
     $query = $conn->prepare("INSERT INTO guestbook (comment, timestamp, user_id) VALUES (:comment, :timestamp, :user_id)");
     $query->bindParam(":comment", $data["comment"]);
