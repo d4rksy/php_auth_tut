@@ -44,6 +44,37 @@ function createGuestbookTable($conn) {
     $query->execute();
 }
 
+function createShopTable($conn) {
+    $query = $conn->prepare("CREATE TABLE `shop` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `items` TEXT DEFAULT NULL,
+    `timestamp` INT(11) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;");
+    $query->execute();
+}
+
+function saveShop($conn, $new_cycle, $timestamp , $new) {
+    if ($new == true) {
+        $query = $conn->prepare("INSERT INTO shop (items, timestamp) VALUES (:items, :timestamp)");
+        $query->bindParam(":items", $new_cycle);
+        $query->bindParam(":timestamp", $timestamp);
+        $query->execute();
+    } else {
+        $query = $conn->prepare("UPDATE shop SET items = :items, timestamp = :timestamp WHERE id = 1");
+        $query->bindParam(":items", $new_cycle);
+        $query->bindParam(":timestamp", $timestamp);
+        $query->execute();
+    }
+}
+
+function getShop($conn) {
+    $query = $conn->prepare("SELECT * FROM shop LIMIT 1");
+    $query->execute();
+    $shop = $query->fetch(PDO::FETCH_ASSOC);
+    return $shop;
+}
+
 function insertComment($conn, $data) {
     $query = $conn->prepare("INSERT INTO guestbook (comment, timestamp, user_id) VALUES (:comment, :timestamp, :user_id)");
     $query->bindParam(":comment", $data["comment"]);
@@ -70,8 +101,8 @@ function tableExists($conn, $table) {
 function fetchGuestbook($conn) {
     $query = $conn->prepare("SELECT profile.username, guestbook.comment, guestbook.timestamp FROM guestbook JOIN profile on profile.id=guestbook.user_id ORDER BY guestbook.timestamp DESC");
     $query->execute();
-    $profile = $query->fetchAll();
-    return $profile;
+    $guestbook = $query->fetchAll();
+    return $guestbook;
 }
 
 ?>
