@@ -38,7 +38,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
             $_SESSION["user"]["user_name"]  = $user["username"];
             $_SESSION["user"]["login_flag"] = $user["login_flag"];
             // Redirect to index on login
-            header('Location: http://localhost/authtest/index.php');
+            header('Location: index.php');
         } else {
             // Wrong password so set Password error to true.
             $passError = true;

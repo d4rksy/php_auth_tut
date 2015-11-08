@@ -18,6 +18,25 @@ if (!isset($_SESSION["user"])) {
     header("Location: login.php");
 }
 
+/**
+ * Check if Ajax request for when we want to grab comments from another page.
+ */
+if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
+    //request is ajax
+    /** Get the guestbook comments from the database. */
+    $commentList = fetchGuestbook($conn);
+    /** Set the content-type of this page to JSON while making an AJAX request */
+    header('Content-type: application/json');
+    /** We have to print or echo our comments, also json_encode them for our javascript function */
+    echo json_encode($commentList);
+    /**
+     * Kill the rest of the script, we don't want anything else except the JSON to render
+     * otherwise the dataType:"json", option in our AJAX call will not register a 
+     * successful ajax call.
+     */
+    die();
+}
+
 $emptyError = false;
 
 // Check for $_POST
